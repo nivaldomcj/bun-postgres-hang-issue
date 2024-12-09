@@ -1,17 +1,13 @@
-import { Client } from "pg";
+import { sql } from "drizzle-orm"
+import { drizzle } from "drizzle-orm/postgres-js"
+import queryClient from "./queryClient"
 
-console.log("🎉 Initializing client...");
+console.log("🔌 Connecting to database...")
+const db = drizzle(queryClient({ app: "test" }))
+console.log("🆗 Connected to database!")
 
-const client = new Client({
-  connectionString: "postgresql://postgres:postgres@localhost:5432/postgres",
-});
+console.log("🔍 Executing query...")
+const result = await db.execute(sql`SELECT 1 as result`)
+console.log("✅ Query executed!")
 
-// await client.connect()
-
-console.log("🏃 Running query...");
-const result = await client.query("SELECT 1+1 AS result");
-
-console.log(`✅ Query run, here is the result: ${JSON.stringify(result)}`);
-
-process.exit(0);
-export {};
+console.log("🧮 Query result:", result)
