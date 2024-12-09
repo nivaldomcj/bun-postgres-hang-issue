@@ -7,7 +7,7 @@ const db = drizzle(queryClient({ app: "test" }))
 console.log("🆗 Connected to database!")
 
 console.log("🔍 Executing query...")
-const result = await db.execute(sql`SELECT 1 as result`)
+const result = await db.execute(sql`SELECT 1 as result`).execute()
 console.log("✅ Query executed!")
 
 console.log("🧮 Query result:", result)
