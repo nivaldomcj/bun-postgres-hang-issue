@@ -6,8 +6,12 @@ console.log("🔌 Connecting to database...")
 const db = drizzle(queryClient({ app: "test" }))
 console.log("🆗 Connected to database!")
 
-console.log("🔍 Executing query...")
-const result = await db.execute(sql`SELECT 1 as result`).execute()
-console.log("✅ Query executed!")
+console.log("🔍 Executing queries...")
 
-console.log("🧮 Query result:", result)
+for (let i = 0; i < 100; i++) {
+  await db.execute(sql`SELECT ${i} as result`).execute()
+  console.log(`✅ Query ${i} executed!`)
+}
+
+console.log("✅ Done!")
+process.exit(0)
